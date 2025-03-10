@@ -1,6 +1,5 @@
-
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { ChevronLeft, ShoppingCart, Trash2, CreditCard } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -14,6 +13,7 @@ const cartItems = [
 ];
 
 const Cart = () => {
+  const navigate = useNavigate();
   const items = cartItems.map(item => {
     const product = mockProducts.find(p => p.id === item.id);
     return { ...item, product };
@@ -32,6 +32,7 @@ const Cart = () => {
   };
 
   const handleCheckout = () => {
+    navigate('/checkout');
     toast.success("Proceeding to checkout");
   };
 
@@ -140,7 +141,7 @@ const Cart = () => {
                   className="retro-button retro-button-primary w-full"
                 >
                   <CreditCard className="mr-2 h-4 w-4" />
-                  Checkout
+                  Proceed to Checkout
                 </button>
                 <p className="text-xs text-center mt-4 retro-body text-retro-muted-foreground">
                   Secure payment processing. All transactions are encrypted.
