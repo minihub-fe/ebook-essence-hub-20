@@ -25,9 +25,9 @@ const ProductDetail = () => {
   
   if (!product) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center">
-        <h1 className="retro-heading text-2xl">Product not found</h1>
-        <Link to="/" className="retro-button retro-button-primary mt-4">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-retro-background">
+        <h1 className="retro-heading text-2xl mb-4">Product not found</h1>
+        <Link to="/" className="retro-button retro-button-primary">
           Go back to home
         </Link>
       </div>
@@ -56,14 +56,14 @@ const ProductDetail = () => {
   return (
     <div className="min-h-screen bg-retro-background">
       <Navbar />
-      <main className="retro-container pt-20 pb-16">
+      <main className="container mx-auto px-4 pt-24 pb-16">
         <Link to="/" className="inline-flex items-center text-sm text-retro-secondary hover:text-retro-secondary/80 retro-body mb-6 border-b-2 border-dashed border-retro-secondary">
           <ChevronLeft className="mr-1 h-4 w-4" />
           Back to Products
         </Link>
 
         {/* Product Header */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           {/* Product Image */}
           <div className="relative aspect-[4/3] rounded-xl overflow-hidden border-2 border-retro-primary shadow-retro-md shadow-retro-primary bg-white">
             <img
@@ -74,7 +74,7 @@ const ProductDetail = () => {
             {product.videoUrl && (
               <button 
                 className="absolute bottom-4 right-4 rounded-full bg-retro-primary hover:bg-retro-primary/90 text-white w-10 h-10 flex items-center justify-center shadow-retro-sm shadow-retro-secondary" 
-                onClick={() => window.open(product.videoUrl, '_blank')}
+                onClick={() => setActiveTab('video')}
               >
                 <Play className="h-5 w-5" fill="white" />
               </button>
@@ -151,213 +151,168 @@ const ProductDetail = () => {
               </div>
             </div>
             
-            {/* Sample PDF Preview (mobile only) */}
+            {/* Sample PDF Preview Button (not the actual preview) */}
             <div className="md:hidden retro-card border-retro-accent shadow-retro-accent p-4 mb-6">
               <h3 className="retro-heading text-lg mb-3">Sample Preview</h3>
-              {product.pdfSampleUrl ? (
-                <div className="h-[300px] mb-3">
-                  <PdfViewer 
-                    url={product.pdfSampleUrl} 
-                    maxPages={3} 
-                  />
+              <div className="flex items-center justify-center h-32 bg-retro-muted rounded-lg mb-3">
+                <div className="text-center p-4">
+                  <BookOpen className="h-8 w-8 mx-auto text-retro-secondary" />
+                  <p className="mt-2 text-sm retro-body">Click to see sample pages</p>
                 </div>
-              ) : (
-                <div className="flex items-center justify-center h-32 bg-retro-muted rounded-lg">
-                  <div className="text-center p-4">
-                    <BookOpen className="h-8 w-8 mx-auto text-slate-400" />
-                    <p className="mt-2 text-sm retro-body">No preview available</p>
-                  </div>
-                </div>
-              )}
+              </div>
               <button 
                 onClick={() => setIsPreviewOpen(true)} 
                 className="retro-button retro-button-accent w-full"
               >
-                View Full Preview
+                View Preview
               </button>
             </div>
           </div>
         </div>
 
         {/* Content Tabs */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          {/* Main Content Area */}
-          <div className="md:col-span-2">
-            {/* Tab Navigation */}
-            <div className="flex border-b-2 border-retro-muted mb-6 overflow-x-auto scrollbar-hide">
+        <div className="grid grid-cols-1 gap-8 mb-12">
+          {/* Tab Navigation */}
+          <div className="flex border-b-2 border-retro-muted overflow-x-auto scrollbar-none">
+            <button 
+              className={`px-4 py-2 retro-body border-b-2 -mb-0.5 ${activeTab === 'description' ? 'border-retro-primary text-retro-primary font-bold' : 'border-transparent'}`}
+              onClick={() => setActiveTab('description')}
+            >
+              Description
+            </button>
+            <button 
+              className={`px-4 py-2 retro-body border-b-2 -mb-0.5 ${activeTab === 'features' ? 'border-retro-primary text-retro-primary font-bold' : 'border-transparent'}`}
+              onClick={() => setActiveTab('features')}
+            >
+              Features
+            </button>
+            <button 
+              className={`px-4 py-2 retro-body border-b-2 -mb-0.5 ${activeTab === 'learn' ? 'border-retro-primary text-retro-primary font-bold' : 'border-transparent'}`}
+              onClick={() => setActiveTab('learn')}
+            >
+              What You'll Learn
+            </button>
+            <button 
+              className={`px-4 py-2 retro-body border-b-2 -mb-0.5 ${activeTab === 'reviews' ? 'border-retro-primary text-retro-primary font-bold' : 'border-transparent'}`}
+              onClick={() => setActiveTab('reviews')}
+            >
+              Reviews
+            </button>
+            {product.videoUrl && (
               <button 
-                className={`px-4 py-2 retro-body border-b-2 -mb-0.5 ${activeTab === 'description' ? 'border-retro-primary text-retro-primary font-bold' : 'border-transparent'}`}
-                onClick={() => setActiveTab('description')}
+                className={`px-4 py-2 retro-body border-b-2 -mb-0.5 ${activeTab === 'video' ? 'border-retro-primary text-retro-primary font-bold' : 'border-transparent'}`}
+                onClick={() => setActiveTab('video')}
               >
-                Description
+                Video
               </button>
-              <button 
-                className={`px-4 py-2 retro-body border-b-2 -mb-0.5 ${activeTab === 'features' ? 'border-retro-primary text-retro-primary font-bold' : 'border-transparent'}`}
-                onClick={() => setActiveTab('features')}
-              >
-                Features
-              </button>
-              <button 
-                className={`px-4 py-2 retro-body border-b-2 -mb-0.5 ${activeTab === 'learn' ? 'border-retro-primary text-retro-primary font-bold' : 'border-transparent'}`}
-                onClick={() => setActiveTab('learn')}
-              >
-                What You'll Learn
-              </button>
-              <button 
-                className={`px-4 py-2 retro-body border-b-2 -mb-0.5 ${activeTab === 'reviews' ? 'border-retro-primary text-retro-primary font-bold' : 'border-transparent'}`}
-                onClick={() => setActiveTab('reviews')}
-              >
-                Reviews
-              </button>
-              {product.videoUrl && (
-                <button 
-                  className={`px-4 py-2 retro-body border-b-2 -mb-0.5 ${activeTab === 'video' ? 'border-retro-primary text-retro-primary font-bold' : 'border-transparent'}`}
-                  onClick={() => setActiveTab('video')}
-                >
-                  Video
-                </button>
-              )}
-            </div>
-            
-            {/* Tab Content */}
-            <div className="min-h-[400px]">
-              {/* Description Tab */}
-              {activeTab === 'description' && (
-                <div className="retro-card border-retro-primary shadow-retro-primary p-6">
-                  <div className="flex items-center mb-4">
-                    <BookOpen className="h-6 w-6 text-retro-primary mr-3" />
-                    <h2 className="retro-heading text-xl">Product Description</h2>
-                  </div>
-                  <p className="retro-body">{product.description}</p>
-                </div>
-              )}
-              
-              {/* Features Tab */}
-              {activeTab === 'features' && (
-                <div className="retro-card border-retro-primary shadow-retro-primary p-6">
-                  <div className="flex items-center mb-6">
-                    <Award className="h-6 w-6 text-retro-primary mr-3" />
-                    <h2 className="retro-heading text-xl">Key Features</h2>
-                  </div>
-                  
-                  {product.features ? (
-                    <div className="grid gap-3 sm:grid-cols-2">
-                      {product.features.map((feature, index) => (
-                        <div key={index} className="flex items-start p-4 bg-retro-muted rounded-lg border border-retro-primary transform hover:translate-y-[-4px] transition-transform duration-200">
-                          <CheckCircle2 className="h-5 w-5 text-retro-primary mr-3 flex-shrink-0" />
-                          <span className="retro-body">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="text-center retro-body text-slate-500 italic">No features listed for this product.</p>
-                  )}
-                </div>
-              )}
-              
-              {/* What You'll Learn Tab */}
-              {activeTab === 'learn' && (
-                <div className="retro-card border-retro-secondary shadow-retro-secondary p-6">
-                  <div className="flex items-center mb-6">
-                    <BookOpen className="h-6 w-6 text-retro-secondary mr-3" />
-                    <h2 className="retro-heading text-xl">What You'll Learn</h2>
-                  </div>
-                  
-                  <ProductMarketing />
-                </div>
-              )}
-              
-              {/* Reviews Tab */}
-              {activeTab === 'reviews' && (
-                <div className="retro-card border-retro-secondary shadow-retro-secondary p-6">
-                  <div className="flex items-center mb-6">
-                    <Star className="h-6 w-6 text-retro-secondary mr-3" />
-                    <h2 className="retro-heading text-xl">Customer Reviews</h2>
-                  </div>
-                  
-                  {product.reviews && product.reviews.length > 0 ? (
-                    <div className="space-y-6">
-                      {product.reviews.map((review, index) => (
-                        <div key={index} className="p-4 bg-retro-muted rounded-lg border border-retro-secondary transform hover:translate-y-[-4px] transition-transform duration-200">
-                          <div className="flex items-center justify-between">
-                            <h4 className="font-bold text-retro-secondary retro-heading">{review.name}</h4>
-                            <div className="flex">
-                              {Array.from({ length: 5 }).map((_, i) => (
-                                <Star 
-                                  key={i} 
-                                  className={`h-4 w-4 ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-slate-200'}`} 
-                                />
-                              ))}
-                            </div>
-                          </div>
-                          <p className="mt-2 retro-body">{review.comment}</p>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="text-center py-8 bg-retro-muted rounded-lg border border-retro-secondary">
-                      <BookOpen className="h-12 w-12 mx-auto text-retro-secondary" />
-                      <p className="mt-4 text-slate-500 italic retro-body">No reviews yet. Be the first to review this product!</p>
-                    </div>
-                  )}
-                </div>
-              )}
-              
-              {/* Video Tab */}
-              {activeTab === 'video' && product.videoUrl && (
-                <div className="retro-card border-retro-primary shadow-retro-primary p-6">
-                  <div className="flex items-center mb-6">
-                    <Play className="h-6 w-6 text-retro-primary mr-3" />
-                    <h2 className="retro-heading text-xl">Product Video</h2>
-                  </div>
-                  
-                  <div className="aspect-video rounded-lg overflow-hidden bg-black border-2 border-retro-primary">
-                    <iframe
-                      width="100%"
-                      height="100%"
-                      src={product.videoUrl}
-                      title="Product Video"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
-                  </div>
-                </div>
-              )}
-            </div>
+            )}
           </div>
           
-          {/* Sidebar - PDF Preview (desktop only) */}
-          <div className="hidden md:block">
-            <div className="sticky top-24">
-              <div className="retro-card border-retro-accent shadow-retro-accent p-6">
-                <h3 className="retro-heading text-xl mb-4">Sample Preview</h3>
-                {product.pdfSampleUrl ? (
-                  <div className="h-[500px] mb-4">
-                    <PdfViewer 
-                      url={product.pdfSampleUrl} 
-                      maxPages={3} 
-                    />
+          {/* Tab Content */}
+          <div className="min-h-[400px]">
+            {/* Description Tab */}
+            {activeTab === 'description' && (
+              <div className="retro-card border-retro-primary shadow-retro-primary p-6">
+                <div className="flex items-center mb-4">
+                  <BookOpen className="h-6 w-6 text-retro-primary mr-3" />
+                  <h2 className="retro-heading text-xl">Product Description</h2>
+                </div>
+                <p className="retro-body">{product.description}</p>
+              </div>
+            )}
+            
+            {/* Features Tab */}
+            {activeTab === 'features' && (
+              <div className="retro-card border-retro-primary shadow-retro-primary p-6">
+                <div className="flex items-center mb-6">
+                  <Award className="h-6 w-6 text-retro-primary mr-3" />
+                  <h2 className="retro-heading text-xl">Key Features</h2>
+                </div>
+                
+                {product.features ? (
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    {product.features.map((feature, index) => (
+                      <div key={index} className="flex items-start p-4 bg-retro-muted rounded-lg border border-retro-primary transform hover:translate-y-[-4px] transition-transform duration-200">
+                        <CheckCircle2 className="h-5 w-5 text-retro-primary mr-3 flex-shrink-0" />
+                        <span className="retro-body">{feature}</span>
+                      </div>
+                    ))}
                   </div>
                 ) : (
-                  <div className="flex items-center justify-center h-64 bg-retro-muted rounded-lg">
-                    <div className="text-center p-6">
-                      <BookOpen className="h-12 w-12 mx-auto text-slate-400" />
-                      <h3 className="mt-4 font-medium">No preview available</h3>
-                      <p className="mt-2 text-sm text-slate-500 retro-body">
-                        Preview for this product is not yet available.
-                      </p>
-                    </div>
+                  <p className="text-center retro-body text-slate-500 italic">No features listed for this product.</p>
+                )}
+              </div>
+            )}
+            
+            {/* What You'll Learn Tab */}
+            {activeTab === 'learn' && (
+              <div className="retro-card border-retro-secondary shadow-retro-secondary p-6">
+                <div className="flex items-center mb-6">
+                  <BookOpen className="h-6 w-6 text-retro-secondary mr-3" />
+                  <h2 className="retro-heading text-xl">What You'll Learn</h2>
+                </div>
+                
+                <ProductMarketing />
+              </div>
+            )}
+            
+            {/* Reviews Tab */}
+            {activeTab === 'reviews' && (
+              <div className="retro-card border-retro-secondary shadow-retro-secondary p-6">
+                <div className="flex items-center mb-6">
+                  <Star className="h-6 w-6 text-retro-secondary mr-3" />
+                  <h2 className="retro-heading text-xl">Customer Reviews</h2>
+                </div>
+                
+                {product.reviews && product.reviews.length > 0 ? (
+                  <div className="space-y-6">
+                    {product.reviews.map((review, index) => (
+                      <div key={index} className="p-4 bg-retro-muted rounded-lg border border-retro-secondary transform hover:translate-y-[-4px] transition-transform duration-200">
+                        <div className="flex items-center justify-between">
+                          <h4 className="font-bold text-retro-secondary retro-heading">{review.name}</h4>
+                          <div className="flex">
+                            {Array.from({ length: 5 }).map((_, i) => (
+                              <Star 
+                                key={i} 
+                                className={`h-4 w-4 ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-slate-200'}`} 
+                              />
+                            ))}
+                          </div>
+                        </div>
+                        <p className="mt-2 retro-body">{review.comment}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-8 bg-retro-muted rounded-lg border border-retro-secondary">
+                    <BookOpen className="h-12 w-12 mx-auto text-retro-secondary" />
+                    <p className="mt-4 text-slate-500 italic retro-body">No reviews yet. Be the first to review this product!</p>
                   </div>
                 )}
-                <button 
-                  onClick={() => setIsPreviewOpen(true)} 
-                  className="w-full retro-button retro-button-accent"
-                >
-                  View Full Preview
-                </button>
               </div>
-            </div>
+            )}
+            
+            {/* Video Tab */}
+            {activeTab === 'video' && product.videoUrl && (
+              <div className="retro-card border-retro-primary shadow-retro-primary p-6">
+                <div className="flex items-center mb-6">
+                  <Play className="h-6 w-6 text-retro-primary mr-3" />
+                  <h2 className="retro-heading text-xl">Product Video</h2>
+                </div>
+                
+                <div className="aspect-video rounded-lg overflow-hidden bg-black border-2 border-retro-primary">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src={product.videoUrl}
+                    title="Product Video"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -373,35 +328,32 @@ const ProductDetail = () => {
         {/* Preview Modal */}
         {isPreviewOpen && (
           <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
-            <div className="bg-white rounded-xl shadow-2xl w-full max-w-5xl max-h-[90vh] flex flex-col border-2 border-retro-primary">
-              <div className="flex items-center justify-between p-4 border-b bg-retro-accent">
-                <h2 className="retro-heading text-xl">Sample Preview: {product.title}</h2>
+            <div className="bg-white rounded-xl shadow-2xl w-full max-w-5xl max-h-[90vh] flex flex-col border-4 border-retro-primary">
+              <div className="flex items-center justify-between p-4 border-b-2 border-retro-primary bg-retro-accent">
+                <h2 className="retro-heading text-xl">Preview: {product.title}</h2>
                 <button 
                   onClick={() => setIsPreviewOpen(false)}
-                  className="rounded-full w-8 h-8 flex items-center justify-center hover:bg-retro-primary/10"
+                  className="rounded-full w-10 h-10 flex items-center justify-center hover:bg-retro-primary/10 border-2 border-retro-primary text-retro-primary font-mono font-bold"
                 >
-                  <span className="sr-only">Close</span>
-                  <span aria-hidden className="text-2xl text-retro-primary">×</span>
+                  <span aria-hidden className="text-2xl">×</span>
                 </button>
               </div>
-              <div className="flex-1 overflow-auto p-4">
+              <div className="flex-1 overflow-auto p-6 bg-retro-background">
                 {product.pdfSampleUrl ? (
-                  <ScrollArea className="h-full">
-                    <PdfViewer url={product.pdfSampleUrl} maxPages={3} />
-                  </ScrollArea>
+                  <PdfViewer url={product.pdfSampleUrl} maxPages={3} isModal={true} />
                 ) : (
                   <div className="flex items-center justify-center h-full">
-                    <div className="text-center p-8">
-                      <BookOpen className="h-12 w-12 mx-auto text-slate-400" />
+                    <div className="text-center p-8 retro-card border-retro-secondary shadow-retro-secondary">
+                      <BookOpen className="h-12 w-12 mx-auto text-retro-secondary" />
                       <h3 className="mt-4 retro-heading">No preview available</h3>
-                      <p className="mt-2 text-sm text-slate-500 retro-body">
+                      <p className="mt-2 text-sm text-retro-muted-foreground retro-body">
                         Preview for this product is not yet available.
                       </p>
                     </div>
                   </div>
                 )}
               </div>
-              <div className="p-4 border-t flex justify-between items-center bg-retro-muted rounded-b-xl">
+              <div className="p-4 border-t-2 border-retro-primary flex justify-between items-center bg-retro-muted">
                 <span className="text-sm text-retro-secondary retro-body">Limited preview of {product.title}</span>
                 <div className="space-x-2">
                   <button 

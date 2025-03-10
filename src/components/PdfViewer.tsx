@@ -1,16 +1,16 @@
 
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 interface PdfViewerProps {
   url: string;
   maxPages?: number;
   className?: string;
+  isModal?: boolean;
 }
 
-const PdfViewer = ({ url, maxPages = 3, className }: PdfViewerProps) => {
+const PdfViewer = ({ url, maxPages = 3, className, isModal = false }: PdfViewerProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   
@@ -23,7 +23,11 @@ const PdfViewer = ({ url, maxPages = 3, className }: PdfViewerProps) => {
   };
 
   return (
-    <div className={cn("flex flex-col w-full h-full min-h-[400px] md:min-h-[600px]", className)}>
+    <div className={cn(
+      "flex flex-col w-full h-full", 
+      isModal ? "min-h-[70vh]" : "min-h-[400px] md:min-h-[600px]",
+      className
+    )}>
       <div className="relative flex-1 bg-retro-accent rounded-xl overflow-hidden border-2 border-retro-primary shadow-retro-md shadow-retro-primary">
         {loading && (
           <div className="absolute inset-0 flex items-center justify-center bg-white/80">
