@@ -52,3 +52,34 @@ html {
 button, a, input[type="submit"], [role="button"] {
   cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' style='fill:%239b87f5;stroke:%239b87f5;stroke-width:1'><circle cx='8' cy='8' r='6'/></svg>") 8 8, pointer;
 }
+
+/* Tooltip styling */
+.tooltip-trigger {
+  position: relative;
+}
+
+.tooltip-trigger .tooltip-content {
+  visibility: hidden;
+  position: absolute;
+  bottom: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  color: #333;
+  text-align: center;
+  padding: 4px 8px;
+  border-radius: 4px;
+  z-index: 100;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  opacity: 0;
+  transition: opacity 0.3s, visibility 0.3s;
+  border: 2px solid hsl(var(--retro-secondary));
+  font-family: 'Space Mono', monospace;
+  box-shadow: 3px 3px 0px 0px hsl(var(--retro-secondary));
+}
+
+.tooltip-trigger:hover .tooltip-content {
+  visibility: visible;
+  opacity: 1;
+}

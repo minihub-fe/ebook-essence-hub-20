@@ -1,156 +1,156 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "sonner";
-import { ChevronLeft, ShoppingCart, Trash2, CreditCard } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import { Badge } from "@/components/ui/badge";
-import { mockProducts } from "@/lib/products";
 
-// Mock cart items for demonstration
-const cartItems = [
-  { id: "1", quantity: 1 },
-  { id: "2", quantity: 1 }
-];
+import { useState } from "react";
+import { mockProducts } from "@/lib/products";
+import { Link } from "react-router-dom";
+import { Trash2, ShoppingCart, ArrowRight } from "lucide-react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const Cart = () => {
-  const navigate = useNavigate();
-  const items = cartItems.map(item => {
-    const product = mockProducts.find(p => p.id === item.id);
-    return { ...item, product };
-  }).filter(item => item.product);
+  // In a real app, this would come from your cart state management
+  const [cartItems, setCartItems] = useState(
+    mockProducts.slice(0, 2).map(product => ({
+      ...product,
+      quantity: 1
+    }))
+  );
 
-  const subtotal = items.reduce((sum, item) => sum + (item.product?.price || 0) * item.quantity, 0);
-  const tax = subtotal * 0.08; // 8% tax rate
+  const removeItem = (id: string) => {
+    setCartItems(cartItems.filter(item => item.id !== id));
+  };
+
+  const updateQuantity = (id: string, quantity: number) => {
+    if (quantity < 1) return;
+    setCartItems(
+      cartItems.map(item => 
+        item.id === id ? { ...item, quantity } : item
+      )
+    );
+  };
+
+  const calculateSubtotal = () => {
+    return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  };
+
+  const subtotal = calculateSubtotal();
+  const tax = subtotal * 0.1; // 10% tax
   const total = subtotal + tax;
-
-  const handleRemoveItem = (id: string) => {
-    toast.success("Item removed from cart");
-  };
-
-  const handleQuantityChange = (id: string, qty: number) => {
-    // This would update quantity in a real app
-  };
-
-  const handleCheckout = () => {
-    navigate('/checkout');
-    toast.success("Proceeding to checkout");
-  };
 
   return (
     <div className="min-h-screen bg-retro-background">
       <Navbar />
-      <main className="container mx-auto px-4 pt-24 pb-16">
-        <Link to="/" className="inline-flex items-center text-sm text-retro-secondary hover:text-retro-secondary/80 retro-body mb-6 border-b-2 border-dashed border-retro-secondary">
-          <ChevronLeft className="mr-1 h-4 w-4" />
-          Continue Shopping
-        </Link>
-
+      <main className="container mx-auto px-4 pt-28 pb-16">
         <div className="flex items-center mb-8">
-          <ShoppingCart className="h-8 w-8 text-retro-secondary mr-3" />
+          <ShoppingCart className="h-6 w-6 text-retro-secondary mr-3" />
           <h1 className="retro-heading text-3xl">Your Cart</h1>
         </div>
 
-        {items.length === 0 ? (
-          <div className="retro-card border-retro-secondary shadow-retro-secondary p-8 text-center">
-            <div className="mb-4">
-              <ShoppingCart className="h-12 w-12 text-retro-secondary mx-auto opacity-50" />
+        {cartItems.length === 0 ? (
+          <div className="text-center py-12">
+            <div className="retro-card border-retro-secondary p-8 max-w-md mx-auto">
+              <h2 className="text-xl font-serif mb-4">Your cart is empty</h2>
+              <p className="font-mono text-retro-muted-foreground mb-6">
+                Looks like you haven't added any items to your cart yet.
+              </p>
+              <Link to="/" className="retro-button retro-button-secondary">
+                Start Shopping
+              </Link>
             </div>
-            <h2 className="retro-heading text-xl mb-4">Your cart is empty</h2>
-            <p className="retro-body mb-6">Looks like you haven't added any digital products to your cart yet.</p>
-            <Link to="/" className="retro-button retro-button-primary inline-block">
-              Browse Products
-            </Link>
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
-              <div className="retro-card border-retro-primary shadow-retro-primary p-0 mb-6 overflow-hidden">
-                <div className="bg-retro-primary/10 p-4 border-b-2 border-retro-primary">
-                  <h2 className="retro-heading text-xl text-retro-primary">Cart Items ({items.length})</h2>
+              <div className="bg-white rounded-lg border-2 border-retro-secondary shadow-retro-sm mb-6">
+                <div className="hidden md:grid grid-cols-12 gap-4 p-4 border-b border-dashed border-retro-secondary/50 font-mono text-sm text-retro-muted-foreground">
+                  <div className="col-span-6">Product</div>
+                  <div className="col-span-2 text-center">Price</div>
+                  <div className="col-span-2 text-center">Quantity</div>
+                  <div className="col-span-2 text-center">Subtotal</div>
                 </div>
-                <ul className="divide-y-2 divide-dashed divide-retro-primary/30">
-                  {items.map(item => (
-                    <li key={item.id} className="p-4">
-                      <div className="flex gap-4">
-                        <div className="w-20 h-20 overflow-hidden border-2 border-retro-secondary rounded-md flex-shrink-0">
-                          <img 
-                            src={item.product?.coverImage} 
-                            alt={item.product?.title}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <div className="flex-grow">
-                          <div className="flex justify-between">
-                            <div>
-                              <h3 className="retro-heading text-lg">{item.product?.title}</h3>
-                              <p className="text-sm retro-body text-retro-muted-foreground">{item.product?.author}</p>
-                              <Badge className="retro-badge retro-badge-secondary mt-1">{item.product?.category}</Badge>
-                            </div>
-                            <div className="text-right">
-                              <p className="retro-heading text-lg text-retro-primary">${item.product?.price}</p>
-                              <div className="flex items-center mt-2">
-                                <select 
-                                  value={item.quantity}
-                                  onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value))}
-                                  className="retro-body bg-white border-2 border-retro-secondary rounded px-2 py-1 text-sm mr-2"
-                                >
-                                  {[1, 2, 3, 4, 5].map(num => (
-                                    <option key={num} value={num}>
-                                      {num}
-                                    </option>
-                                  ))}
-                                </select>
-                                <button 
-                                  onClick={() => handleRemoveItem(item.id)}
-                                  className="text-red-500 hover:text-red-700"
-                                >
-                                  <Trash2 className="h-4 w-4" />
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+
+                {cartItems.map((item) => (
+                  <div key={item.id} className="grid grid-cols-1 md:grid-cols-12 gap-4 p-4 border-b border-dashed border-retro-secondary/50 items-center">
+                    <div className="col-span-6 flex items-center">
+                      <div className="w-16 h-20 bg-retro-muted rounded mr-4 overflow-hidden border border-retro-secondary">
+                        <img src={item.coverImage} alt={item.title} className="w-full h-full object-cover" />
                       </div>
-                    </li>
-                  ))}
-                </ul>
+                      <div className="text-left">
+                        <h3 className="font-serif font-bold">{item.title}</h3>
+                        <p className="text-xs font-mono text-retro-muted-foreground">{item.category}</p>
+                      </div>
+                    </div>
+                    <div className="col-span-2 text-center font-mono">
+                      ${item.price.toFixed(2)}
+                    </div>
+                    <div className="col-span-2 flex justify-center">
+                      <div className="flex items-center border-2 border-retro-secondary rounded-md overflow-hidden">
+                        <button 
+                          className="px-2 py-1 bg-retro-muted hover:bg-retro-secondary hover:text-white transition-colors"
+                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        >
+                          -
+                        </button>
+                        <span className="px-3 py-1 font-mono">{item.quantity}</span>
+                        <button 
+                          className="px-2 py-1 bg-retro-muted hover:bg-retro-secondary hover:text-white transition-colors"
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                    <div className="col-span-1 md:text-center font-mono font-bold">
+                      ${(item.price * item.quantity).toFixed(2)}
+                    </div>
+                    <div className="col-span-1 flex justify-end md:justify-center">
+                      <button 
+                        onClick={() => removeItem(item.id)}
+                        className="text-retro-secondary hover:text-red-500 transition-colors"
+                      >
+                        <Trash2 className="h-5 w-5" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex justify-between">
+                <Link to="/" className="font-mono text-sm text-retro-secondary hover:underline flex items-center">
+                  <ArrowRight className="h-4 w-4 mr-1 rotate-180" /> Continue Shopping
+                </Link>
               </div>
             </div>
 
             <div className="lg:col-span-1">
-              <div className="retro-card border-retro-secondary shadow-retro-secondary p-6 mb-6 sticky top-24">
-                <h2 className="retro-heading text-xl mb-6 pb-4 border-b-2 border-dashed border-retro-secondary/50">Order Summary</h2>
-                <div className="space-y-2 mb-6">
-                  <div className="flex justify-between retro-body">
+              <div className="bg-white rounded-lg border-2 border-retro-primary shadow-retro-sm shadow-retro-primary p-6">
+                <h2 className="font-serif font-bold text-xl mb-4 border-b border-dashed border-retro-primary/50 pb-2">
+                  Order Summary
+                </h2>
+                <div className="space-y-3 font-mono mb-6">
+                  <div className="flex justify-between">
                     <span>Subtotal</span>
                     <span>${subtotal.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between retro-body">
-                    <span>Tax</span>
+                  <div className="flex justify-between">
+                    <span>Tax (10%)</span>
                     <span>${tax.toFixed(2)}</span>
                   </div>
-                  <div className="border-t-2 border-dashed border-retro-secondary/50 pt-2 mt-2">
-                    <div className="flex justify-between font-bold retro-heading text-lg">
+                  <div className="border-t border-dashed border-retro-primary/50 pt-2 mt-2">
+                    <div className="flex justify-between font-bold">
                       <span>Total</span>
-                      <span>${total.toFixed(2)}</span>
+                      <span className="text-retro-primary">${total.toFixed(2)}</span>
                     </div>
                   </div>
                 </div>
-                <button 
-                  onClick={handleCheckout}
-                  className="retro-button retro-button-primary w-full"
-                >
-                  <CreditCard className="mr-2 h-4 w-4" />
+                <Link to="/checkout" className="retro-button retro-button-primary w-full justify-center">
                   Proceed to Checkout
-                </button>
-                <p className="text-xs text-center mt-4 retro-body text-retro-muted-foreground">
-                  Secure payment processing. All transactions are encrypted.
-                </p>
+                </Link>
               </div>
             </div>
           </div>
         )}
       </main>
+      <Footer />
     </div>
   );
 };

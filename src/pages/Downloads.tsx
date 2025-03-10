@@ -1,9 +1,9 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, Download, File, FileText, FileSearch, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { mockProducts } from "@/lib/products";
+import Footer from "@/components/Footer";
 
 // Mock downloads for demonstration
 const downloadItems = [
@@ -20,7 +20,7 @@ const Downloads = () => {
   return (
     <div className="min-h-screen bg-retro-background">
       <Navbar />
-      <main className="container mx-auto px-4 pt-24 pb-16">
+      <main className="container mx-auto px-4 pt-28 pb-16">
         <Link to="/" className="inline-flex items-center text-sm text-retro-secondary hover:text-retro-secondary/80 retro-body mb-6 border-b-2 border-dashed border-retro-secondary">
           <ChevronLeft className="mr-1 h-4 w-4" />
           Back to Store
@@ -121,6 +121,7 @@ const Downloads = () => {
           </div>
         )}
       </main>
+      <Footer />
     </div>
   );
 };
