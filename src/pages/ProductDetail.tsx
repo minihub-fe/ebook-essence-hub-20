@@ -10,10 +10,16 @@ import ProductReviews from "@/components/ProductReviews";
 import RelatedProducts from "@/components/RelatedProducts";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useState } from "react";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const product = mockProducts.find((p) => p.id === id);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+
+  const handlePreviewOpen = () => {
+    setIsPreviewOpen(true);
+  };
 
   if (!product) {
     return (
@@ -28,6 +34,9 @@ const ProductDetail = () => {
     );
   }
 
+  // Get related products
+  const relatedProducts = mockProducts.filter(p => p.id !== id).slice(0, 4);
+
   return (
     <div className="min-h-screen bg-retro-background">
       <Navbar />
@@ -41,14 +50,14 @@ const ProductDetail = () => {
           
           {/* Right column - Purchase info and actions */}
           <div>
-            <ProductActions product={product} />
+            <ProductActions product={product} onPreviewOpen={handlePreviewOpen} />
             <ProductDescription product={product} />
             <ProductMarketing />
           </div>
         </div>
         
-        <ProductReviews />
-        <RelatedProducts />
+        <ProductReviews product={product} />
+        <RelatedProducts products={relatedProducts} />
       </main>
       <Footer />
     </div>
