@@ -4,6 +4,11 @@ import { ShoppingCart, User, Search, Download, ClipboardList } from "lucide-reac
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger
+} from "@/components/ui/tooltip";
 
 const NavbarIcons = () => {
   const [cartCount, setCartCount] = useState(2);
@@ -25,24 +30,29 @@ const NavbarIcons = () => {
   return (
     <div className="flex items-center gap-2">
       {visibleIcons.map((item) => (
-        <Link key={item.title} to={item.path} className="group">
-          <button 
-            className={cn(
-              "relative flex items-center justify-center",
-              "h-10 w-10 rounded-lg bg-white border-2 border-retro-secondary",
-              "hover:bg-retro-secondary/10 transition-all duration-300",
-              "tooltip-trigger"
-            )}
-            aria-label={item.title}
-          >
-            <item.Icon className="h-5 w-5 text-retro-secondary group-hover:scale-110 transition-transform" />
-            {item.hasBadge && item.count > 0 && (
-              <span className="absolute -top-2 -right-2 bg-retro-primary text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-mono border border-white">
-                {item.count}
-              </span>
-            )}
-            <span className="tooltip-content">{item.title}</span>
-          </button>
+        <Link key={item.title} to={item.path}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button 
+                className={cn(
+                  "relative flex items-center justify-center",
+                  "h-10 w-10 rounded-lg bg-white border-2 border-retro-secondary",
+                  "hover:bg-retro-secondary/10 transition-all duration-300"
+                )}
+                aria-label={item.title}
+              >
+                <item.Icon className="h-5 w-5 text-retro-secondary group-hover:scale-110 transition-transform" />
+                {item.hasBadge && item.count > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-retro-primary text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-mono border border-white">
+                    {item.count}
+                  </span>
+                )}
+              </button>
+            </TooltipTrigger>
+            <TooltipContent className="bg-white border-2 border-retro-secondary rounded-md px-3 py-1 text-sm shadow-retro-sm">
+              {item.title}
+            </TooltipContent>
+          </Tooltip>
         </Link>
       ))}
     </div>
