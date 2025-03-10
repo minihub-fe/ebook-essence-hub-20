@@ -1,3 +1,4 @@
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -11,11 +12,13 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em rgba(155, 135, 245, 0.8));
 }
+
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em rgba(126, 105, 171, 0.8));
 }
 
 @keyframes logo-spin {
@@ -39,4 +42,13 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Retro cursor styling */
+html {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' style='fill:none;stroke:%239b87f5;stroke-width:2'><circle cx='8' cy='8' r='6'/></svg>") 8 8, auto;
+}
+
+button, a, input[type="submit"], [role="button"] {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' style='fill:%239b87f5;stroke:%239b87f5;stroke-width:1'><circle cx='8' cy='8' r='6'/></svg>") 8 8, pointer;
 }

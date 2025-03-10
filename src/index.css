@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -25,8 +26,8 @@
     --ring: 240 5.9% 10%;
     --radius: 0.75rem;
 
-    /* Retro theme variables */
-    --retro-background: 250 25% 98%;
+    /* Enhanced Retro theme variables */
+    --retro-background: 220 20% 97%;
     --retro-foreground: 240 10% 3.9%;
     --retro-primary: 271 91% 65%;
     --retro-primary-foreground: 0 0% 100%;
@@ -39,11 +40,19 @@
     --retro-card: 0 0% 100%;
     --retro-card-foreground: 240 10% 3.9%;
     --retro-border: 240 5.9% 90%;
+    
+    /* New retro tertiary colors */
+    --retro-tertiary: 320 80% 70%;
+    --retro-tertiary-foreground: 0 0% 100%;
+    --retro-quaternary: 150 60% 75%;
+    --retro-quaternary-foreground: 240 10% 3.9%;
 
-    /* Shadow variables */
-    --shadow-retro-sm: 2px 2px 0px 0px;
-    --shadow-retro-md: 4px 4px 0px 0px;
+    /* Shadow variables - enhanced with new options */
+    --shadow-retro-sm: 3px 3px 0px 0px;
+    --shadow-retro-md: 5px 5px 0px 0px;
     --shadow-retro-lg: 8px 8px 0px 0px;
+    --shadow-retro-inset: inset 3px 3px 0px rgba(0,0,0,0.2);
+    --shadow-retro-glow: 0 0 10px rgba(155, 135, 245, 0.5);
   }
  
   * {
@@ -53,6 +62,11 @@
   body {
     @apply bg-retro-background text-retro-foreground antialiased;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
+    background-image: 
+      radial-gradient(rgba(155, 135, 245, 0.05) 2px, transparent 2px),
+      radial-gradient(rgba(155, 135, 245, 0.05) 2px, transparent 2px);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
   }
 
   html {
@@ -65,8 +79,9 @@
     text-wrap: balance;
   }
   
+  /* Enhanced retro card styles */
   .retro-card {
-    @apply bg-white rounded-lg border-2 shadow-retro-sm;
+    @apply bg-white rounded-lg border-2 shadow-retro-sm transition-all duration-200;
   }
   
   .retro-card-primary {
@@ -81,12 +96,22 @@
     @apply border-retro-accent shadow-retro-accent;
   }
   
+  .retro-card-tertiary {
+    @apply border-retro-tertiary shadow-retro-tertiary;
+  }
+  
+  /* Improved text gradient */
   .retro-text-gradient {
     @apply bg-gradient-to-r from-retro-primary to-retro-secondary bg-clip-text text-transparent;
   }
   
+  .retro-text-gradient-vibrant {
+    @apply bg-gradient-to-r from-retro-primary via-retro-tertiary to-retro-secondary bg-clip-text text-transparent;
+  }
+  
+  /* Enhanced button styles */
   .retro-button {
-    @apply px-4 py-2 rounded-md border-2 font-mono transition-transform hover:-translate-y-1;
+    @apply px-4 py-2 rounded-md border-2 font-mono transition-transform hover:-translate-y-1 active:translate-y-0;
   }
   
   .retro-button-primary {
@@ -101,10 +126,16 @@
     @apply bg-white border-retro-accent text-retro-accent-foreground shadow-retro-sm shadow-retro-accent hover:bg-retro-accent;
   }
   
+  .retro-button-tertiary {
+    @apply bg-white border-retro-tertiary text-retro-tertiary shadow-retro-sm shadow-retro-tertiary hover:bg-retro-tertiary hover:text-white;
+  }
+  
+  /* Improved icon button */
   .retro-button-icon {
     @apply h-10 w-10 rounded-full flex items-center justify-center bg-white border-2 border-retro-secondary hover:bg-retro-secondary/10 transition-colors;
   }
   
+  /* Enhanced badges */
   .retro-badge {
     @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold font-mono;
   }
@@ -121,10 +152,16 @@
     @apply bg-retro-accent text-retro-accent-foreground;
   }
   
+  .retro-badge-tertiary {
+    @apply bg-retro-tertiary text-retro-tertiary-foreground;
+  }
+  
+  /* Layout utilities */
   .retro-container {
     @apply container mx-auto px-4 sm:px-6 lg:px-8;
   }
   
+  /* Typography */
   .retro-heading {
     @apply font-serif font-bold tracking-tight;
   }
@@ -135,5 +172,85 @@
   
   .retro-section {
     @apply mb-12 p-8 rounded-lg;
+  }
+  
+  /* New animation utilities */
+  .retro-hover-float {
+    @apply transition-transform duration-300 hover:-translate-y-2;
+  }
+  
+  .retro-hover-pulse {
+    @apply transition-all duration-300 hover:scale-105;
+  }
+  
+  /* New pattern backgrounds */
+  .retro-bg-dots {
+    background-image: radial-gradient(rgba(155, 135, 245, 0.2) 2px, transparent 2px);
+    background-size: 20px 20px;
+  }
+  
+  .retro-bg-stripes {
+    background: repeating-linear-gradient(
+      45deg,
+      rgba(155, 135, 245, 0.05),
+      rgba(155, 135, 245, 0.05) 10px,
+      rgba(255, 255, 255, 0) 10px,
+      rgba(255, 255, 255, 0) 20px
+    );
+  }
+  
+  .retro-glow {
+    @apply relative;
+  }
+  
+  .retro-glow::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(155, 135, 245, 0.2) 0%, transparent 70%);
+    z-index: -1;
+    border-radius: inherit;
+  }
+  
+  /* Animation classes */
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 5s ease-in-out infinite;
+  }
+  
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out forwards;
+  }
+  
+  @keyframes scale-in {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  
+  .animate-scale-in {
+    animation: scale-in 0.3s ease-out forwards;
   }
 }

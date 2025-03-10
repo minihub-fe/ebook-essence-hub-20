@@ -82,6 +82,10 @@ export default {
 					card: 'hsl(var(--retro-card))',
 					'card-foreground': 'hsl(var(--retro-card-foreground))',
 					border: 'hsl(var(--retro-border))',
+					tertiary: 'hsl(var(--retro-tertiary))',
+					'tertiary-foreground': 'hsl(var(--retro-tertiary-foreground))',
+					quaternary: 'hsl(var(--retro-quaternary))',
+					'quaternary-foreground': 'hsl(var(--retro-quaternary-foreground))',
 				}
 			},
 			borderRadius: {
@@ -93,6 +97,8 @@ export default {
 				'retro-sm': 'var(--shadow-retro-sm)',
 				'retro-md': 'var(--shadow-retro-md)',
 				'retro-lg': 'var(--shadow-retro-lg)',
+				'retro-inset': 'var(--shadow-retro-inset)',
+				'retro-glow': 'var(--shadow-retro-glow)',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -110,11 +116,38 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				float: {
+					'0%': { transform: 'translateY(0px)' },
+					'50%': { transform: 'translateY(-10px)' },
+					'100%': { transform: 'translateY(0px)' }
+				},
+				pulse: {
+					'0%': { transform: 'scale(1)' },
+					'50%': { transform: 'scale(1.05)' },
+					'100%': { transform: 'scale(1)' }
+				},
+				'fade-in': {
+					from: { opacity: '0' },
+					to: { opacity: '1' }
+				},
+				'scale-in': {
+					from: { transform: 'scale(0.9)', opacity: '0' },
+					to: { transform: 'scale(1)', opacity: '1' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'float': 'float 5s ease-in-out infinite',
+				'pulse-slow': 'pulse 5s ease-in-out infinite',
+				'fade-in': 'fade-in 0.5s ease-out forwards',
+				'scale-in': 'scale-in 0.3s ease-out forwards'
+			},
+			backgroundImage: {
+				'retro-dots': 'radial-gradient(rgba(155, 135, 245, 0.2) 2px, transparent 2px)',
+				'retro-stripes': 'repeating-linear-gradient(45deg, rgba(155, 135, 245, 0.05), rgba(155, 135, 245, 0.05) 10px, rgba(255, 255, 255, 0) 10px, rgba(255, 255, 255, 0) 20px)',
+				'retro-grid': 'linear-gradient(rgba(155, 135, 245, 0.05) 1px, transparent 1px), linear-gradient(to right, rgba(155, 135, 245, 0.05) 1px, transparent 1px)',
 			}
 		}
 	},
