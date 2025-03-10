@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -27,13 +26,13 @@
     --radius: 0.75rem;
 
     /* Retro theme variables */
-    --retro-background: 240 14% 97%;
+    --retro-background: 250 25% 98%;
     --retro-foreground: 240 10% 3.9%;
-    --retro-primary: 25 95% 53%;
+    --retro-primary: 271 91% 65%;
     --retro-primary-foreground: 0 0% 100%;
-    --retro-secondary: 271 91% 65%;
+    --retro-secondary: 250 43% 48%;
     --retro-secondary-foreground: 0 0% 100%;
-    --retro-accent: 50 94% 85%;
+    --retro-accent: 45 100% 80%;
     --retro-accent-foreground: 24 9% 10%;
     --retro-muted: 252 22% 96%;
     --retro-muted-foreground: 240 5% 34%;
@@ -100,6 +99,10 @@
   
   .retro-button-accent {
     @apply bg-white border-retro-accent text-retro-accent-foreground shadow-retro-sm shadow-retro-accent hover:bg-retro-accent;
+  }
+  
+  .retro-button-icon {
+    @apply h-10 w-10 rounded-full flex items-center justify-center bg-white border-2 border-retro-secondary hover:bg-retro-secondary/10 transition-colors;
   }
   
   .retro-badge {
