@@ -53,7 +53,7 @@ const NavbarIcons = () => {
               </TooltipTrigger>
               <TooltipContent 
                 className="bg-white border-2 border-retro-secondary rounded-md px-3 py-1 text-sm shadow-retro-sm z-[100]"
-                sideOffset={5}
+                sideOffset={10}
               >
                 {item.title}
               </TooltipContent>
