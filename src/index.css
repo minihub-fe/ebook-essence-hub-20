@@ -24,7 +24,27 @@
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
-    --radius: 1rem;
+    --radius: 0.75rem;
+
+    /* Retro theme variables */
+    --retro-background: 240 14% 97%;
+    --retro-foreground: 240 10% 3.9%;
+    --retro-primary: 25 95% 53%;
+    --retro-primary-foreground: 0 0% 100%;
+    --retro-secondary: 271 91% 65%;
+    --retro-secondary-foreground: 0 0% 100%;
+    --retro-accent: 50 94% 85%;
+    --retro-accent-foreground: 24 9% 10%;
+    --retro-muted: 252 22% 96%;
+    --retro-muted-foreground: 240 5% 34%;
+    --retro-card: 0 0% 100%;
+    --retro-card-foreground: 240 10% 3.9%;
+    --retro-border: 240 5.9% 90%;
+
+    /* Shadow variables */
+    --shadow-retro-sm: 2px 2px 0px 0px;
+    --shadow-retro-md: 4px 4px 0px 0px;
+    --shadow-retro-lg: 8px 8px 0px 0px;
   }
  
   * {
@@ -32,7 +52,7 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-retro-background text-retro-foreground antialiased;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
   }
 
@@ -44,5 +64,73 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  
+  .retro-card {
+    @apply bg-white rounded-lg border-2 shadow-retro-sm;
+  }
+  
+  .retro-card-primary {
+    @apply border-retro-primary shadow-retro-primary;
+  }
+  
+  .retro-card-secondary {
+    @apply border-retro-secondary shadow-retro-secondary;
+  }
+  
+  .retro-card-accent {
+    @apply border-retro-accent shadow-retro-accent;
+  }
+  
+  .retro-text-gradient {
+    @apply bg-gradient-to-r from-retro-primary to-retro-secondary bg-clip-text text-transparent;
+  }
+  
+  .retro-button {
+    @apply px-4 py-2 rounded-md border-2 font-mono transition-transform hover:-translate-y-1;
+  }
+  
+  .retro-button-primary {
+    @apply bg-white border-retro-primary text-retro-primary shadow-retro-sm shadow-retro-primary hover:bg-retro-primary hover:text-white;
+  }
+  
+  .retro-button-secondary {
+    @apply bg-white border-retro-secondary text-retro-secondary shadow-retro-sm shadow-retro-secondary hover:bg-retro-secondary hover:text-white;
+  }
+  
+  .retro-button-accent {
+    @apply bg-white border-retro-accent text-retro-accent-foreground shadow-retro-sm shadow-retro-accent hover:bg-retro-accent;
+  }
+  
+  .retro-badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold font-mono;
+  }
+  
+  .retro-badge-primary {
+    @apply bg-retro-primary text-retro-primary-foreground;
+  }
+  
+  .retro-badge-secondary {
+    @apply bg-retro-secondary text-retro-secondary-foreground;
+  }
+  
+  .retro-badge-accent {
+    @apply bg-retro-accent text-retro-accent-foreground;
+  }
+  
+  .retro-container {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .retro-heading {
+    @apply font-serif font-bold tracking-tight;
+  }
+  
+  .retro-body {
+    @apply font-mono text-retro-foreground;
+  }
+  
+  .retro-section {
+    @apply mb-12 p-8 rounded-lg;
   }
 }

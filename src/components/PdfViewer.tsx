@@ -23,11 +23,11 @@ const PdfViewer = ({ url, maxPages = 3, className }: PdfViewerProps) => {
   };
 
   return (
-    <div className={cn("flex flex-col w-full h-full min-h-[600px] md:min-h-[700px]", className)}>
-      <div className="relative flex-1 bg-[#FEF7CD] rounded-xl overflow-hidden border-4 border-[#FEC6A1] shadow-[8px_8px_0px_#FEC6A1]">
+    <div className={cn("flex flex-col w-full h-full min-h-[400px] md:min-h-[600px]", className)}>
+      <div className="relative flex-1 bg-retro-accent rounded-xl overflow-hidden border-2 border-retro-primary shadow-retro-md shadow-retro-primary">
         {loading && (
           <div className="absolute inset-0 flex items-center justify-center bg-white/80">
-            <Loader2 className="h-8 w-8 animate-spin text-[#F97316]" />
+            <Loader2 className="h-8 w-8 animate-spin text-retro-primary" />
           </div>
         )}
         <iframe 
@@ -38,29 +38,25 @@ const PdfViewer = ({ url, maxPages = 3, className }: PdfViewerProps) => {
         />
       </div>
       
-      <div className="flex items-center justify-between mt-4 bg-[#E5DEFF] p-4 rounded-lg border-2 border-[#8B5CF6] shadow-[4px_4px_0px_#8B5CF6]">
-        <span className="text-sm font-medium text-[#8B5CF6] font-mono">
+      <div className="flex items-center justify-between mt-4 bg-retro-muted p-4 rounded-lg border-2 border-retro-secondary shadow-retro-sm shadow-retro-secondary">
+        <span className="text-sm font-medium text-retro-secondary retro-body">
           Page {currentPage} of {maxPages}
         </span>
         <div className="flex gap-2">
-          <Button 
-            variant="outline" 
-            size="sm" 
+          <button 
             onClick={handlePrevPage}
             disabled={currentPage === 1}
-            className="bg-white border-2 border-[#8B5CF6] hover:bg-[#8B5CF6] hover:text-white transition-colors duration-200"
+            className="retro-button retro-button-secondary disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <ChevronLeft className="h-4 w-4 mr-1" /> Previous
-          </Button>
-          <Button 
-            variant="outline" 
-            size="sm" 
+            <ChevronLeft className="h-4 w-4 mr-1 inline" /> Previous
+          </button>
+          <button 
             onClick={handleNextPage}
             disabled={currentPage === maxPages}
-            className="bg-white border-2 border-[#8B5CF6] hover:bg-[#8B5CF6] hover:text-white transition-colors duration-200"
+            className="retro-button retro-button-secondary disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Next <ChevronRight className="h-4 w-4 ml-1" />
-          </Button>
+            Next <ChevronRight className="h-4 w-4 ml-1 inline" />
+          </button>
         </div>
       </div>
     </div>

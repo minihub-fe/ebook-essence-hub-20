@@ -22,6 +22,7 @@ export default {
 			fontFamily: {
 				'serif': ['Playfair Display', 'Georgia', 'serif'],
 				'mono': ['Space Mono', 'Courier New', 'monospace'],
+				'sans': ['Inter', 'system-ui', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -66,12 +67,32 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				retro: {
+					background: 'hsl(var(--retro-background))',
+					foreground: 'hsl(var(--retro-foreground))',
+					primary: 'hsl(var(--retro-primary))',
+					'primary-foreground': 'hsl(var(--retro-primary-foreground))',
+					secondary: 'hsl(var(--retro-secondary))',
+					'secondary-foreground': 'hsl(var(--retro-secondary-foreground))',
+					accent: 'hsl(var(--retro-accent))',
+					'accent-foreground': 'hsl(var(--retro-accent-foreground))',
+					muted: 'hsl(var(--retro-muted))',
+					'muted-foreground': 'hsl(var(--retro-muted-foreground))',
+					card: 'hsl(var(--retro-card))',
+					'card-foreground': 'hsl(var(--retro-card-foreground))',
+					border: 'hsl(var(--retro-border))',
 				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			boxShadow: {
+				'retro-sm': 'var(--shadow-retro-sm)',
+				'retro-md': 'var(--shadow-retro-md)',
+				'retro-lg': 'var(--shadow-retro-lg)',
 			},
 			keyframes: {
 				'accordion-down': {
