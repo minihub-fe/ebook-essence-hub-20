@@ -21,7 +21,7 @@ const PdfViewer = ({ url, maxPages = 3 }: PdfViewerProps) => {
   };
 
   return (
-    <div className="flex flex-col w-full h-full min-h-[600px] md:min-h-[800px]">
+    <div className="flex flex-col w-full h-full min-h-[550px] md:min-h-[700px]">
       <div className="relative flex-1 bg-slate-100 rounded-xl overflow-hidden">
         {loading && (
           <div className="absolute inset-0 flex items-center justify-center bg-white/80">
