@@ -10,11 +10,11 @@ const NavbarIcons = () => {
   const isMobile = useIsMobile();
   
   const icons = [
-    { icon: Search, title: "Search", path: "#", hasBadge: false },
-    { icon: ShoppingCart, title: "Cart", path: "/cart", hasBadge: true, count: cartCount },
-    { icon: Download, title: "Downloads", path: "/downloads", hasBadge: false },
-    { icon: ClipboardList, title: "Purchases", path: "/purchases", hasBadge: false, showOnMobile: false },
-    { icon: User, title: "Account", path: "/account", hasBadge: false },
+    { Icon: Search, title: "Search", path: "#", hasBadge: false },
+    { Icon: ShoppingCart, title: "Cart", path: "/cart", hasBadge: true, count: cartCount },
+    { Icon: Download, title: "Downloads", path: "/downloads", hasBadge: false },
+    { Icon: ClipboardList, title: "Purchases", path: "/purchases", hasBadge: false, showOnMobile: false },
+    { Icon: User, title: "Account", path: "/account", hasBadge: false },
   ];
 
   // Filter icons for mobile view
@@ -35,7 +35,7 @@ const NavbarIcons = () => {
             )}
             aria-label={item.title}
           >
-            <item.icon className="h-5 w-5 text-retro-secondary group-hover:scale-110 transition-transform" />
+            <item.Icon className="h-5 w-5 text-retro-secondary group-hover:scale-110 transition-transform" />
             {item.hasBadge && item.count > 0 && (
               <span className="absolute -top-2 -right-2 bg-retro-primary text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-mono border border-white">
                 {item.count}
