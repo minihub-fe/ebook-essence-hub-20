@@ -26,7 +26,7 @@ const ResourceContent = () => {
       type: "video",
       icon: <Video className="h-6 w-6 text-purple-600" />,
       duration: "25 min",
-      link: "#",
+      videoId: "HyDPG1yzoRY", // Example YouTube video ID
       categories: ["beginner", "technical"]
     },
     {
@@ -46,7 +46,7 @@ const ResourceContent = () => {
       type: "video",
       icon: <Video className="h-6 w-6 text-purple-600" />,
       duration: "32 min",
-      link: "#",
+      videoId: "gAkwW2tuIqE", // Example YouTube video ID
       categories: ["advanced", "marketing"]
     },
     {
@@ -66,7 +66,7 @@ const ResourceContent = () => {
       type: "video",
       icon: <Video className="h-6 w-6 text-purple-600" />,
       duration: "45 min",
-      link: "#",
+      videoId: "oeb8CdPYsuk", // Example YouTube video ID
       categories: ["advanced", "technical"]
     },
     {
@@ -86,7 +86,7 @@ const ResourceContent = () => {
       type: "video",
       icon: <Video className="h-6 w-6 text-purple-600" />,
       duration: "38 min",
-      link: "#",
+      videoId: "VfGW0Qiy2I0", // Example YouTube video ID
       categories: ["advanced", "marketing"]
     },
     {
@@ -155,21 +155,24 @@ const ResourceContent = () => {
                       <CardDescription>{resource.description}</CardDescription>
                     </div>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="space-y-4">
                     <div className="flex items-center justify-between font-mono text-sm">
                       <span className="bg-retro-muted px-3 py-1 rounded-full text-retro-muted-foreground">
                         {resource.duration}
                       </span>
                     </div>
+                    {/* Embedded YouTube video */}
+                    <div className="aspect-video w-full overflow-hidden rounded-md">
+                      <iframe 
+                        className="w-full h-full"
+                        src={`https://www.youtube.com/embed/${resource.videoId}`} 
+                        title={resource.title} 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowFullScreen
+                        loading="lazy"
+                      ></iframe>
+                    </div>
                   </CardContent>
-                  <CardFooter>
-                    <Button 
-                      className="w-full group-hover:bg-retro-secondary group-hover:text-white transition-colors"
-                      variant="outline"
-                    >
-                      <Link className="mr-2 h-4 w-4" /> Watch Tutorial
-                    </Button>
-                  </CardFooter>
                 </Card>
               ))}
           </div>
