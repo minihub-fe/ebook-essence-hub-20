@@ -12,6 +12,7 @@ import Downloads from "./pages/Downloads";
 import Purchases from "./pages/Purchases";
 import NotFound from "./pages/NotFound";
 import Sell from "./pages/Sell";
+import Resources from "./pages/Resources";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/purchases" element={<Purchases />} />
           <Route path="/account" element={<NotFound />} />
           <Route path="/sell" element={<Sell />} />
+          <Route path="/resources" element={<Resources />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

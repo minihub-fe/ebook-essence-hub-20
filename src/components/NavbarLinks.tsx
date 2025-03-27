@@ -13,6 +13,7 @@ const NavbarLinks = () => {
     { title: "Books", path: "/books" },
     { title: "Templates", path: "/templates" },
     { title: "Courses", path: "/courses" },
+    { title: "Resources", path: "/resources" },
     { title: "Sell", path: "/sell" },
   ];
 
