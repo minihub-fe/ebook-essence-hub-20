@@ -7,14 +7,14 @@ import HowItWorks from "@/components/sell/HowItWorks";
 import WhatYouCanSell from "@/components/sell/WhatYouCanSell";
 import FeesAndPricing from "@/components/sell/FeesAndPricing";
 import SellerSuccess from "@/components/sell/SellerSuccess";
-import SellerCTA from "@/components/sell/SellerCTA";
 import SellerFAQ from "@/components/sell/SellerFAQ";
+import SellerCTA from "@/components/sell/SellerCTA";
 
 const Sell = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <main className="flex-grow pt-24 pb-16">
+      <main className="flex-grow">
         <SellHero />
         <HowItWorks />
         <WhatYouCanSell />
